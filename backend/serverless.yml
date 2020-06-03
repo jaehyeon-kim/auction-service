@@ -20,6 +20,10 @@ functions:
           method: POST
           path: /auction
 
+resources:
+  Resources:
+    ${file(./cloudformation/dynamodb.yaml)}
+
 # custom:
 #   bundle:
 #     linting: false
