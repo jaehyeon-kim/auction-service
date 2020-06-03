@@ -75,3 +75,12 @@ powershell.exe bash
 ###### ssh key
 ssh-keygen -t rsa -b 4096 -C "user@example.com"
 ssh-keygen -f ./id_rsa -t rsa -b 4096 -C "comment"
+
+###### vscode extensions
+Docker
+GitLens
+Python
+Python Docstring Generation
+Serverless IDE
+Vetur
+YAML
