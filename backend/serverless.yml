@@ -10,6 +10,7 @@ provider:
   runtime: nodejs12.x
   memorySize: 256
   stage: ${opt:stage, 'dev'}
+  region: ap-southeast-2
   
 functions:
   hello:
@@ -18,3 +19,7 @@ functions:
       - http:
           method: GET
           path: /hello
+
+# custom:
+#   bundle:
+#     linting: false
