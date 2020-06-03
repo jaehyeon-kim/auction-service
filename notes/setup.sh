@@ -20,10 +20,12 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.0/install.sh | bash
 # nvm use v10.16.3
 
 # nvm install v12.18.0
-# nvm use v12..18.0
+# nvm use v12.18.0
 
 # nvm list # list installed versions
 # nvm ls-remote # list all available versions
+
+nvm alias default 12.18.0
 
 # npm install -g serverless
 # serverless upgrade
