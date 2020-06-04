@@ -11,6 +11,10 @@ provider:
   memorySize: 256
   stage: ${opt:stage, 'dev'}
   region: ap-southeast-2
+  environment:
+    AUCTIONS_TABLE_NAME: ${self:custom.AuctionsTable.name}
+  iamRoleStatements:
+    - ${file(./cloudformation/AuctionsTableIAM.yaml):AuctionsTableIAM}
   
 functions:
   createAuction:
@@ -22,8 +26,11 @@ functions:
 
 resources:
   Resources:
-    ${file(./cloudformation/dynamodb.yaml)}
+    AuctionsTable: ${file(./cloudformation/AuctionsTable.yaml):AuctionsTable}
 
-# custom:
-#   bundle:
-#     linting: false
+custom:
+  AuctionsTable:
+    name: !Ref AuctionsTable
+    arn: !GetAtt AuctionsTable.Arn
+  bundle:
+    linting: true
