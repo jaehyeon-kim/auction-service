@@ -1,6 +1,10 @@
 import { v4 as uuid } from 'uuid';
 import AWS from 'aws-sdk';
 
+// const AWS = require('aws-sdk');
+// const uuid = require('uuid');
+// uuid.v4();
+
 // https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB/DocumentClient.html
 
 const dynamodb = new AWS.DynamoDB.DocumentClient();
