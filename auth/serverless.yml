@@ -1,0 +1,78 @@
+service: auth-service
+
+plugins:
+  - serverless-python-individually
+  - serverless-python-requirements
+
+custom:
+  pythonRequirements:
+    dockerizePip: non-linux
+  pyIndividually:
+    wrap:auth: authorizer/handler.lambda_function
+    wrap:public: public/lambda_function
+    wrap:private: private/lambda_function
+
+provider:
+  name: aws
+  runtime: python3.7
+  memorySize: 256
+  stage: ${opt:stage, 'dev'}
+  region: ap-southeast-2
+
+package:
+  individually: True
+  # exclude:
+  #   # Exclude everything first.
+  #   - '**/*'
+
+functions:
+  auth:
+    handler: authorizer/handler.lambda_function
+    package:
+      include:
+        - authorizer/**
+  public:
+    handler: public/lambda_function
+    package:
+      include:
+        - api/public.py
+    events:
+      - http:
+          path: public
+          method: POST
+          cors: true
+  private:
+    handler: private/lambda_function
+    package:
+      include:
+        - api/private.py
+    events:
+      - http:
+          path: private
+          method: POST
+          authorizer: auth
+          cors: true
+
+resources:
+  Resources:
+    # This response is needed for custom authorizer failures cors support ¯\_(ツ)_/¯
+    GatewayResponse:
+      Type: 'AWS::ApiGateway::GatewayResponse'
+      Properties:
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+        ResponseType: EXPIRED_TOKEN
+        RestApiId:
+          Ref: 'ApiGatewayRestApi'
+        StatusCode: '401'
+    AuthFailureGatewayResponse:
+      Type: 'AWS::ApiGateway::GatewayResponse'
+      Properties:
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+        ResponseType: UNAUTHORIZED
+        RestApiId:
+          Ref: 'ApiGatewayRestApi'
+        StatusCode: '401'

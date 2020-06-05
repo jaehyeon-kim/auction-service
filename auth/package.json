@@ -1,0 +1,10 @@
+{
+  "name": "auth-service",
+  "description": "",
+  "version": "0.1.0",
+  "dependencies": {},
+  "devDependencies": {
+    "serverless-python-individually": "^0.1.9",
+    "serverless-python-requirements": "^5.1.0"
+  }
+}

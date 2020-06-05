@@ -10,6 +10,7 @@ ipdb = "*"
 boto3 = "*"
 
 [packages]
+python-jose-cryptodome = "*"
 
 [requires]
 python_version = "3.7"
