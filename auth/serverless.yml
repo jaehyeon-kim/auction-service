@@ -23,6 +23,7 @@ package:
 functions:
   auth:
     handler: handler_authorize.lambda_function
+    core: true
   public:
     handler: handler_public.lambda_function
     events:
