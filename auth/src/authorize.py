@@ -5,6 +5,7 @@ from jose import jwt
 
 # https://aws.amazon.com/premiumsupport/knowledge-center/decode-verify-cognito-json-token/
 # https://www.alexdebrie.com/posts/lambda-custom-authorizers/
+# https://github.com/codingly-io/serverless-auth0-authorizer
 
 USER_POOL_ID = os.getenv("USER_POOL_ID", "ap-southeast-2_he47XQ6v9")
 APP_CLIENT_ID = os.getenv("APP_CLIENT_ID", "52qq2fbu4j363i73mpo2lkbanf")
