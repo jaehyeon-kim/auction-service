@@ -1,16 +1,11 @@
 service: auth-service
 
 plugins:
-  - serverless-python-individually
   - serverless-python-requirements
 
 custom:
   pythonRequirements:
     dockerizePip: non-linux
-  pyIndividually:
-    wrap:auth: authorizer/handler.lambda_function
-    wrap:public: public/lambda_function
-    wrap:private: private/lambda_function
 
 provider:
   name: aws
@@ -20,29 +15,23 @@ provider:
   region: ap-southeast-2
 
 package:
-  individually: True
-  # exclude:
-  #   # Exclude everything first.
-  #   - '**/*'
+  exclude:
+    - 'package.json'
+    - 'package-lock.json'
+    - 'requirements.txt'
 
 functions:
   auth:
-    handler: authorizer/handler.lambda_function
-    package:
-      include:
-        - authorizer/**
+    handler: handler_authorize.lambda_function
   public:
-    handler: public/lambda_function
-    package:
-      include:
-        - api/public.py
+    handler: handler_public.lambda_function
     events:
       - http:
           path: public
           method: POST
           cors: true
   private:
-    handler: private/lambda_function
+    handler: handler_private.lambda_function
     package:
       include:
         - api/private.py

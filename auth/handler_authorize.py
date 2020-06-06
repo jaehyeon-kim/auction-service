@@ -1,8 +1,9 @@
 import re
-from authorize import get_decode_token, generate_policy
+from src.authorize import get_decode_token, generate_policy
 
 
 def lambda_function(event, context):
+    print(event)  # keys: type (eg TOKEN), methodArn (apig arn), authorizationToken
     if not event.get("authorizationToken"):
         raise Exception("Unauthorized")
 

@@ -1,9 +1,9 @@
 import json
 
 
-def lambda_handler(event, context):
+def lambda_function(event, context):
     return {
         "statusCode": 200,
         "headers": {"Access-Control-Allow-Origin": "*", "Access-Control-Allow-Credentials": True,},
-        "body": json.dumps({"event": event, "context": context}),
+        "body": json.dumps({"message": "Hi from Public API"}),
     }
