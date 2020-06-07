@@ -17,6 +17,7 @@ async function createAuction(event, context) {
   console.log(event.body);
   const { title } = event.body;
   // const { title } = JSON.parse(event.body);
+  const { email, principalId } = event.requestContext.authorizer;
   const now = new Date();
   const endDate = new Date();
   endDate.setHours(now.getHours() + 1);
@@ -29,7 +30,9 @@ async function createAuction(event, context) {
     endingAt: endDate.toISOString(),
     highestBid: {
       amount: 0
-    }
+    },
+    sellerId: principalId,
+    sellerEmail: email
   };
 
   try {
