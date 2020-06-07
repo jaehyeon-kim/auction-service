@@ -11,9 +11,16 @@ def lambda_function(event, context):
 
     try:
         decoded_token = get_decode_token(token)
-        policy = generate_policy(principal_id=decoded_token["sub"], method_arn=event["methodArn"])
+        policy = generate_policy(decoded_token=decoded_token, method_arn=event["methodArn"])
         print(policy)
         return policy
     except Exception as e:
         print(e)
         raise Exception("Unauthorized")
+
+
+if __name__ == "__main__":
+    import os
+
+    event = {"type": "TOKEN", "authorizationToken": os.getenv("TOKEN"), "methodArn": "foo/bar"}
+    lambda_function(event, {})

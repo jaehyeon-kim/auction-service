@@ -56,9 +56,9 @@ def get_decode_token(token: str):
         raise TokenDecodeException(e)
 
 
-def generate_policy(principal_id: str, method_arn: str):
+def generate_policy(decoded_token: str, method_arn: str):
     return {
-        "principalId": principal_id,
+        "principalId": decoded_token["sub"],
         "policyDocument": {
             "Version": "2012-10-17",
             "Statement": [
@@ -69,6 +69,7 @@ def generate_policy(principal_id: str, method_arn: str):
                 }
             ],
         },
+        "context": {"email": decoded_token["email"]},
     }
 
 
