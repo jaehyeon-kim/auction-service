@@ -74,7 +74,12 @@ powershell.exe bash
 
 ###### ssh key
 ssh-keygen -t rsa -b 4096 -C "user@example.com"
-ssh-keygen -f ./id_rsa -t rsa -b 4096 -C "comment"
+# ssh-keygen -f ./id_rsa -t rsa -b 4096 -C "comment"
+## code commit
+# https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-ssh-unixes.html
+chmod 600 config
+# check
+ssh git-codecommit.ap-southeast-2.amazonaws.com
 
 ###### vscode extensions
 Docker
